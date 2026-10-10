@@ -74,3 +74,23 @@ No format, primitive, or known-answer vector changes were kept. Phase 1 remains
 unaccepted until the slow test completes within its RSS bound, CLI checks finish,
 and a reference-device KDF result is recorded. Phase 0's Android build is also
 still blocked; Phase 2 remains out of scope.
+
+## Independent verification — 2026-10-10 (Linux, Dart SDK 3.13.5)
+
+At the user's request, the outstanding Phase 1 checks were run on a scratch copy of
+this commit (repo files unchanged by the run):
+
+| Check | Result |
+|---|---|
+| Core `dart pub get` | Passed (Dart SDK 3.13.5, linux_x64). |
+| Core `dart analyze` | Passed: `No issues found!`. |
+| Core `dart test --exclude-tags slow` | Passed: 27 passed, 1 skipped (slow KDF test). |
+| CLI encrypt, 3 MiB input, production KDF params (64 MiB / t=3 / p=2) | Exit 0; container produced (3,147,436 bytes). |
+| CLI decrypt, correct password | Exit 0; output byte-identical to input (`cmp`). |
+| CLI decrypt, tampered container (1 byte flipped) | Exit 3 — "Decryption failed: invalid password or damaged file." No output file and no `.part` leftover. |
+| CLI decrypt, wrong password | Exit 3 — same clean failure, no leftovers. |
+
+Remaining open: the 3 MiB checks above are now complete; the tagged 512 MiB RSS
+assertion is left to the scheduled CI `core-large-file` job (it failed on Windows
+at 320,532,480 bytes peak vs the 268,435,456-byte bound), and the reference-device
+KDF benchmark is still unrun — `docs/DECISIONS.md` F4 remains "Pending benchmark".

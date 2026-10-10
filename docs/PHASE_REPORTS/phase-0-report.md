@@ -77,3 +77,14 @@ Phase 0's Flutter checks and secret scan are now verified. The Android build
 acceptance remains blocked by the local Gradle/NDK setup, so Phase 0 is not
 marked accepted. The earlier APK report from the user is not treated as a local
 build result.
+
+## Kotlin compatibility — resolved via CI evidence (2026-10-10)
+
+The reported error was "Kotlin 2.1.0 is below Flutter's minimum supported 2.2.20".
+`app/android/settings.gradle` now declares the Kotlin Android Gradle plugin at
+2.2.20, and CI Build APK run #6 (commit `196e2b4`, the Kotlin-bump commit) ran
+`flutter build apk --release` to **success** and published `bitlock.apk` to the
+`latest` release. A Kotlin-plugin version error fails at Gradle configuration time
+for every build type, so the successful release build proves the reported error is
+resolved. A local `flutter build apk --debug` remains environment-blocked (no
+Android SDK on the verification machine); it is not marked passed.
