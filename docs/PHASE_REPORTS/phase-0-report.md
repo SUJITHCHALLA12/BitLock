@@ -61,3 +61,19 @@ The Bash secret-scan wrapper was also rerun after hardening: it now exits with s
   unrelated generated changes were discarded; the Kotlin version edit is
   retained.
 - The prior Phase 0 blockers remain open.
+
+## Close-out verification — 2026-10-10
+
+| Check | Result |
+|---|---|
+| Flutter dependency resolution | Passed (`flutter pub get`). |
+| Flutter analyzer | Passed: `No issues found! (ran in 124.0s)`. |
+| Flutter widget tests | Passed: `+1: All tests passed!`. |
+| Secret scan | Passed: direct native ripgrep scan printed `Secrets hygiene scan passed.` |
+| Android debug APK | Blocked: prior build stopped while downloading Gradle 8.14 at 0 bytes; a later local attempt could not complete the NDK setup. No local APK build result is available. |
+| Android device | Blocked: `adb devices -l` listed no attached devices. |
+
+Phase 0's Flutter checks and secret scan are now verified. The Android build
+acceptance remains blocked by the local Gradle/NDK setup, so Phase 0 is not
+marked accepted. The earlier APK report from the user is not treated as a local
+build result.

@@ -57,3 +57,20 @@ The SDKs became available for this session, so the earlier blocked checks were r
 | CLI round-trip/tamper checks | Not run. |
 
 Phase 1 remains **not accepted**. Resolve the large-file memory result on the Linux CI runner, run the CLI round-trip and tamper checks, and record the KDF result on a reference Android device. Phase 0 also remains open because the Android project scaffold is incomplete. No Phase 2 or protected-sharing work is claimed.
+
+## Close-out verification — 2026-10-10
+
+| Check | Result |
+|---|---|
+| Core dependencies | Passed: `dart pub get`. |
+| Core analyzer | Passed: `No issues found!`. |
+| Core regular suite | Passed: `dart test --exclude-tags slow`; 28 tests passed after a temporary default-chunk regression test, with the tagged slow test skipped. That temporary test and the unverified 1 MiB default experiment were removed. The final source retains the 64 KiB default. |
+| Known-answer vectors | Passed: `dart test test/crypto_vectors_test.dart`; `+5: All tests passed!`. |
+| 512 MiB streaming test | Not passed: the 1 MiB experiment encrypted the input but the test did not complete decryption. It was interrupted with 386,924,544 bytes in `large.out.part`, before its RSS assertion. No conclusion about the 256 MiB RSS bound can be drawn from this run. The earlier recorded failure remains: peak RSS 320,532,480 bytes. |
+| CLI round trip and tampering | Not completed. The default-parameter CLI encryption remained CPU-bound in Argon2id for more than six minutes without producing the output container; it was stopped. No exit-code or cleanup result is claimed. |
+| Reference-device KDF benchmark | Blocked: `adb devices -l` showed no attached device. |
+
+No format, primitive, or known-answer vector changes were kept. Phase 1 remains
+unaccepted until the slow test completes within its RSS bound, CLI checks finish,
+and a reference-device KDF result is recorded. Phase 0's Android build is also
+still blocked; Phase 2 remains out of scope.

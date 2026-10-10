@@ -21,6 +21,35 @@
 - CI runs core and app analyzers/tests and repository secrets hygiene.
 - Local checks pass, or the exact SDK/environment blocker is recorded. Do not begin Phase 1 until the Phase 0 gate is satisfied.
 
+## Close-out follow-up — 2026-10-10
+
+The user authorized completing the remaining Phase 0 and Phase 1 checks. Work
+must still close Phase 0 before Phase 1 is accepted.
+
+### Existing files to extend
+
+- `app/lib/main.dart` and the existing widget test only if baseline checks
+  expose a Phase 0 defect.
+- `app/android/` only for build configuration necessary to produce a debug APK.
+- This report with exact Flutter, analyzer, test, Android build, and secret-scan
+  output.
+
+### Checks
+
+- From `app/`, run `flutter pub get`, `flutter analyze`, and `flutter test`.
+- Build `flutter build apk --debug` if the installed JDK/Android SDK permit it;
+  record blockers exactly if the build cannot complete.
+- Confirm all foundation docs, Android scaffold files, and CI workflows exist.
+- Run the repository secret scan and record its output.
+
+### Risks and open questions
+
+- This Windows environment's Android Studio uses Java 25, while the repository
+  currently uses Gradle 8.14 / AGP 8.11.1; a compatible temporary JDK may be
+  required. The NDK may also need installation.
+- Do not mark a build passed based on a remote artifact or user report without
+  an available build log or local output.
+
 ## Follow-up plan: Flutter Kotlin compatibility
 
 The Android project was added after the original plan. The current build reports
