@@ -1,0 +1,27 @@
+# Dart and Flutter outputs
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+coverage/
+
+# Android and IDE outputs
+**/.gradle/
+**/local.properties
+**/GeneratedPluginRegistrant.java
+.idea/
+.vscode/
+
+# Local credentials and generated secrets
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.pem
+*.p12
+
+# OS files
+.DS_Store
+Thumbs.db
