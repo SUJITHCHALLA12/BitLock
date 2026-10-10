@@ -45,3 +45,19 @@ After the Phase 0 gate is cleared, complete Phase 1 against `docs/FORMAT.md`, up
 Dart 3.13.5 and Flutter 3.47.6 were available in a later session. Core and app dependency resolution succeeded and generated their package lockfiles. Core analysis and the non-slow suite passed; Flutter analysis and the widget test passed. The tagged 512 MiB stream test exceeded its RSS limit on Windows, and the Android APK build failed because the Android Gradle project and manifest are absent. No Android device or emulator was detected. The earlier table records the original environment accurately; these later results do not close the Phase 0 gate. Git metadata remains unwritable, and there is still no runnable Android APK.
 
 The Bash secret-scan wrapper was also rerun after hardening: it now exits with status 2 when WSL cannot find `rg`, instead of incorrectly printing success. A direct native ripgrep scan found no likely credential assignments.
+
+## Kotlin compatibility follow-up — 2026-10-10
+
+- Updated `app/android/settings.gradle` from Kotlin Android Gradle plugin 2.1.0
+  to 2.2.20, matching the minimum version reported by Flutter 3.47.6.
+- `rg` confirmed there are no remaining 2.1.0 references in `app/android`.
+- `flutter build apk --debug --verbose` reached the Gradle wrapper distribution
+  download (`gradle-8.14-bin.zip`), but the download remained at 0 bytes for
+  more than three minutes. The build was stopped before Gradle or the Kotlin
+  plugin could run, so APK compilation remains unverified; this is an
+  environment/network blocker, not a passing build result.
+- Flutter's automatic Android migration temporarily modified
+  `gradle.properties` and generated wrapper files during the attempt. Those
+  unrelated generated changes were discarded; the Kotlin version edit is
+  retained.
+- The prior Phase 0 blockers remain open.
