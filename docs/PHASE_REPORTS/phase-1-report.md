@@ -56,7 +56,7 @@ The SDKs became available for this session, so the earlier blocked checks were r
 | Secret pattern scan | Native ripgrep scan found no likely credential assignments. The Bash wrapper now fails closed and returned status 2 because this environment's WSL shell cannot find `rg`. |
 | CLI round-trip/tamper checks | Not run. |
 
-Phase 1 remains **not accepted**. Resolve the large-file memory result on the Linux CI runner, run the CLI round-trip and tamper checks, and record the KDF result on a reference Android device. Phase 0 also remains open because the Android project scaffold is incomplete. No Phase 2 or protected-sharing work is claimed.
+Phase 1 remains **not accepted**. Resolve the large-file memory result on the Linux CI runner, run the CLI round-trip and tamper checks, and record the KDF result on a reference Android device. Phase 0 also remains open pending a verified Android debug build. No Phase 2 or protected-sharing work is claimed.
 
 ## Close-out verification — 2026-10-10
 
