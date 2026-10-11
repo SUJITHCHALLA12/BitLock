@@ -92,5 +92,4 @@ this commit (repo files unchanged by the run):
 
 Remaining open: the 3 MiB checks above are now complete; the tagged 512 MiB RSS
 assertion is left to the scheduled CI `core-large-file` job (it failed on Windows
-at 320,532,480 bytes peak vs the 268,435,456-byte bound), and the reference-device
-KDF benchmark is still unrun — `docs/DECISIONS.md` F4 remains "Pending benchmark".
+at 320,532,480 bytes peak vs the 268,435,456-byte bound), and the reference-device KDF benchmark is now measured (2026-10-11: 5605/5258/5022 ms, avg 5295 ms on the user's device — see `docs/DECISIONS.md`); F4 tuning decision (keep vs reduce params) is pending the user's call.
