@@ -7,7 +7,7 @@ Defaults below are the Section F project decisions. Status describes whether a d
 | 1 | Knowledge model | E2EE; managed server-side rendering is separate and opt-in in Phase 7 | Accepted | The server should store ciphertext only by default. |
 | 2 | Recipient app requirement | No for external clients in the Phase 7 web viewer; internal users use the app | Accepted | External access should not require an install. |
 | 3 | Recovery | Show a recovery key once at vault creation and for each E2EE file; without it, recovery is not possible | Accepted | Make key-loss consequences clear while allowing a second wrapper. |
-| 4 | Argon2 parameters | 64 MiB, t=3, p=2; configurable after benchmark | Measured 2026-10-11: ~5.8 s avg over 9 runs on user device (5-8x over target); tuning decision pending | See Phase 1 benchmark section below. |
+| 4 | Argon2 parameters | 64 MiB, t=3, p=2; configurable after benchmark | Accepted 2026-10-11: keep 64 MiB / t=3 / p=2; user chose stronger brute-force resistance over faster unlock | ~5.8 s per unlock on entry-level hardware (Redmi 9i) accepted as the cost of the stronger setting. |
 | 5 | PDF library | pdfx | Accepted | Open-license default; confirm the exact package license at Phase 2 dependency review. |
 | 6 | Office rendering | Off; optional server rendering in Phase 5 with documented E2EE conflict | Accepted | Avoid sending E2EE plaintext to a renderer by default. |
 | 7 | Product name | “BitLock” is a working name only | Pending clearance | Check trademark, Play Store, and domain availability before publication. |
@@ -34,3 +34,6 @@ this device — roughly 5–8x over the 0.5–1 s target. First runs of a sessio
 higher (cold start); settled runs sit near ~5 s. Tuning decision pending user call:
 keep the stronger defaults (slow ~5 s unlock) or reduce parameters toward the target
 (faster unlock, less brute-force resistance).
+
+Decision 2026-10-11: KEEP the defaults. The user reviewed the ~5.8 s average and chose
+not to tune down. F4 is now Accepted.
