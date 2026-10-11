@@ -27,7 +27,7 @@ Three sessions, nine runs total:
 - Session 3: 5526 / 4970 / 4949 ms (avg 5148 ms)
 - Overall: ~5.0–8.5 s per derivation, averaging ~5.8 s
 
-Device model / Android version: to be confirmed by the user.
+Device: Redmi 9i (M2006C3LII), MediaTek Helio G25 — entry-level hardware, which explains the slow pure-Dart Argon2id. Android version: not recorded.
 
 Finding: the default 64 MiB / t=3 / p=2 parameters take ~5–8 s per derivation on
 this device — roughly 5–8x over the 0.5–1 s target. First runs of a session skew
